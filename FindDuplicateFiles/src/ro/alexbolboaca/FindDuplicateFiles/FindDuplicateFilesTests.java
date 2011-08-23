@@ -15,7 +15,7 @@ public class FindDuplicateFilesTests {
 	
 	@Test
 	public void emptyFolderHasNoDuplicatesAlex(){
-		DuplicateSeeker seeker = new DuplicateSeeker("test/");
+		DuplicateSeeker seeker = new DuplicateSeeker();
 		
 		boolean foundDuplicates = seeker.seek();
 		
