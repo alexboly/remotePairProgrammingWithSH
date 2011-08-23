@@ -2,10 +2,14 @@ package ro.alexbolboaca.FindDuplicateFiles;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+import org.junit.rules.*;
 
 
 public class FindDuplicateFilesTests {
 
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+	
 	@Test
 	public void emptyFolderHasNoDuplicates()
 	{
@@ -29,8 +33,11 @@ public class FindDuplicateFilesTests {
 		seeker.seek();
 	}
 	
-	@Test(expected=RuntimeException.class)
+	@Test
 	public void throwsExceptionIfAnotherFolderDoesntExist(){
+		expectedEx.expect(RuntimeException.class);
+		expectedEx.expectMessage("Folder anotherFolder doesn't exist");
+		
 		DuplicateSeeker seeker = new DuplicateSeeker("anotherFolder");
 		
 		seeker.seek();
