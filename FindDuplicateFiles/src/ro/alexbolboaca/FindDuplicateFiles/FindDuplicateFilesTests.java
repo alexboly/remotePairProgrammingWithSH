@@ -13,4 +13,13 @@ public class FindDuplicateFilesTests {
 		assertTrue(emptyFolder.hasNoDuplicates());
 	}
 	
+	@Test
+	public void emptyFolderHasNoDuplicatesAlex(){
+		DuplicateSeeker seeker = new DuplicateSeeker("test/");
+		
+		boolean foundDuplicates = seeker.seek();
+		
+		assertFalse(foundDuplicates);
+	}
+	
 }
