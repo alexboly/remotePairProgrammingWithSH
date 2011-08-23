@@ -1,0 +1,25 @@
+This repository is for my remote pairing session with SH.
+
+We work on the problem of finding duplicate files from http://sites.google.com/site/tddproblems/all-problems-1/finding-duplicate-files.
+
+Here's the description:
+
+When doing backups of media files such as images, movies and music, a common problem is knowing which files are already backed-up and which are not. The simple solution to this is to over-backup, just backup "everything" always. That is an OK solution if you got infinte amount of backup space. It's not so great a solution if you've got limited space, since you end up with the same old christmas pictures scattered at five different places on your oh-so-untidy backup drive.
+
+One solution to this massive-duplication-of-files problem is finding the duplicates, and deleting them. Of course, I *really* want to trust software that finds duplicate files.
+
+Write a duplicate file-finding algorithm using Test Driven Development.
+
+Things to think about:
+
+* What does it mean for a file to be identical to another file? Name, size, content, date-of-creation?
+* How do you specify the input to the algorithm? Should you use some kind of mock of the file system?
+* What is the output of the algorithm? A list of paths, or something else?
+
+To answer those questions, try to come up with examples, instead of "drawing a castle in the sky".
+
+To get you started, here are a few examples:
+
+* The source folder contains a single file "A.txt" which is empty. The result should be that no files are duplicated.
+* The source folder contains two files, "A.txt" and "B.txt", both are empty. The output should specify that A and B are identical.
+* The source folder contains three files "A", "B", "C", in different subdirectories. The content is "123", "456" and "123" respectively. The output should explain that "A" and "C" are identical.
