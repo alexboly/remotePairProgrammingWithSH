@@ -15,11 +15,17 @@ public class FindDuplicateFilesTests {
 	
 	@Test
 	public void emptyFolderHasNoDuplicatesAlex(){
-		DuplicateSeeker seeker = new DuplicateSeeker();
+		DuplicateSeeker seeker = new DuplicateSeeker("doesn't matter");
 		
 		boolean foundDuplicates = seeker.seek();
 		
 		assertFalse(foundDuplicates);
 	}
 	
+	@Test(expected=RuntimeException.class)
+	public void throwsExceptionIfFolderDoesntExist(){
+		DuplicateSeeker seeker = new DuplicateSeeker("nonExistingFolder");
+		
+		seeker.seek();
+	}
 }
