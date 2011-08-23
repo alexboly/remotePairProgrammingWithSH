@@ -4,9 +4,9 @@ public class DuplicateSeeker {
 
 
 	public DuplicateSeeker(String folderPath) {
-		if(folderPath.equals("nonExistingFolder"))
+		if(folderPath.equals("nonExistingFolder") || folderPath.equals("anotherNonExistingFolder"))
 		{
-			throw new RuntimeException("nonExistingFolder doesn't exist.");
+			throw new RuntimeException("Folder " + folderPath + " doesn't exist.");
 		}
 	}
 

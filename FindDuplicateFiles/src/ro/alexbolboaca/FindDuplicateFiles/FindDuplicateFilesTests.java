@@ -36,9 +36,9 @@ public class FindDuplicateFilesTests {
 	@Test
 	public void throwsExceptionIfAnotherFolderDoesntExist(){
 		expectedEx.expect(RuntimeException.class);
-		expectedEx.expectMessage("Folder anotherFolder doesn't exist");
+		expectedEx.expectMessage("Folder anotherNonExistingFolder doesn't exist");
 		
-		DuplicateSeeker seeker = new DuplicateSeeker("anotherFolder");
+		DuplicateSeeker seeker = new DuplicateSeeker("anotherNonExistingFolder");
 		
 		seeker.seek();
 	}
