@@ -7,8 +7,10 @@ import org.junit.*;
 public class FindDuplicateFilesTests {
 
 	@Test
-	public void test(){
-		assertTrue(true);
+	public void emptyFolderHasNoDuplicates()
+	{
+		Folder emptyFolder = new Folder();
+		assertTrue(emptyFolder.hasNoDuplicates());
 	}
 	
 }
