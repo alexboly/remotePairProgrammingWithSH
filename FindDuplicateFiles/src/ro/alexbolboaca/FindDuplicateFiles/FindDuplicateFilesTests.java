@@ -28,4 +28,11 @@ public class FindDuplicateFilesTests {
 		
 		seeker.seek();
 	}
+	
+	@Test(expected=RuntimeException.class)
+	public void throwsExceptionIfAnotherFolderDoesntExist(){
+		DuplicateSeeker seeker = new DuplicateSeeker("anotherFolder");
+		
+		seeker.seek();
+	}
 }
