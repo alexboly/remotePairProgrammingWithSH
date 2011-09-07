@@ -33,6 +33,16 @@ public class FindDuplicateFilesTests {
 	}
 	
 	@Test
+	public void anotherEmptyPathHasNoDuplicates(){
+
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"anotherEmptyFolder"));
+		
+		boolean foundDuplicates = seeker.seek();
+		
+		assertFalse(foundDuplicates);
+	}
+	
+	@Test
 	public void throwsExceptionIfPathDoesntExist(){
 		expectedEx.expect(RuntimeException.class);
 		expectedEx.expectMessage("Path nonExistingPath doesn't exist");
