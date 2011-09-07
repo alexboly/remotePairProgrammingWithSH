@@ -11,6 +11,9 @@ public class DuplicateSeeker {
 	}
 
 	public boolean seek() {
-		return path.exists();
+		path.checkExists();
+		return false;
 	}
+	
+	
 }

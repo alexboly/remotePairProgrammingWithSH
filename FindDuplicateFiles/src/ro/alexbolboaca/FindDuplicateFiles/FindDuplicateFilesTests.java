@@ -14,21 +14,19 @@ public class FindDuplicateFilesTests {
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
+	List<String> nonExistentPaths = new ArrayList<String>();
+
 	@Before
 	public void setup(){
+		nonExistentPaths.add("nonExistingPath");
+		nonExistentPaths.add("anotherNonExistingPath");
 	}
-	
-	@Test
-	public void emptyFolderHasNoDuplicates()
-	{
-		Folder emptyFolder = new Folder();
-		assertTrue(emptyFolder.hasNoDuplicates());
-	}
-	
-	@Test
-	public void emptyFolderHasNoDuplicatesAlex(){
 
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path("doesn't matter"));
+	
+	@Test
+	public void emptyPathHasNoDuplicates(){
+
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(nonExistentPaths,"doesn't matter"));
 		
 		boolean foundDuplicates = seeker.seek();
 		
@@ -36,42 +34,39 @@ public class FindDuplicateFilesTests {
 	}
 	
 	@Test
-	public void throwsExceptionIfFolderDoesntExist(){
+	public void throwsExceptionIfPathDoesntExist(){
 		expectedEx.expect(RuntimeException.class);
-		expectedEx.expectMessage("Folder nonExistingFolder doesn't exist");
+		expectedEx.expectMessage("Path nonExistingPath doesn't exist");
 
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path("nonExistingFolder"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(nonExistentPaths,"nonExistingPath"));
 		
 		seeker.seek();
 	}
 	
 	@Test
-	public void throwsExceptionIfAnotherFolderDoesntExist(){
+	public void throwsExceptionIfAnotherPathDoesntExist(){
 		expectedEx.expect(RuntimeException.class);
-		expectedEx.expectMessage("Folder anotherNonExistingFolder doesn't exist");
+		expectedEx.expectMessage("Path anotherNonExistingPath doesn't exist");
 		
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path("anotherNonExistingFolder"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(nonExistentPaths,"anotherNonExistingPath"));
 		
 		seeker.seek();
 	}
 	
 	class Path{
-		List<String> nonExistentFolderPaths;
-		public String folderPath;
+		List<String> nonExistentPaths;
+		private String path;
 		
-		public Path(String folderPath){
-			nonExistentFolderPaths = new ArrayList<String>();
-			nonExistentFolderPaths.add("nonExistingFolder");
-			nonExistentFolderPaths.add("anotherNonExistingFolder");
-			this.folderPath = folderPath;
+		public Path(List<String> nonExistentPaths,String path){
+			this.nonExistentPaths = nonExistentPaths;
+			this.path = path;
 		}
 		
-		public boolean exists(){
-			if(nonExistentFolderPaths.contains(folderPath)){
-				throw new RuntimeException("Folder " + folderPath + " doesn't exist.");			
+		public void checkExists(){
+			if(nonExistentPaths.contains(path)){
+				throw new RuntimeException("Path " + path + " doesn't exist.");			
 			}
-			
-			return true;
 		}
 	}
+
 }
