@@ -14,19 +14,18 @@ public class FindDuplicateFilesTests {
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
-	List<String> nonExistentPaths = new ArrayList<String>();
+	List<String> existentPaths = new ArrayList<String>();
 
 	@Before
 	public void setup(){
-		nonExistentPaths.add("nonExistingPath");
-		nonExistentPaths.add("anotherNonExistingPath");
+		existentPaths.add("emptyFolder");
 	}
 
 	
 	@Test
 	public void emptyPathHasNoDuplicates(){
 
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path(nonExistentPaths,"doesn't matter"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"emptyFolder"));
 		
 		boolean foundDuplicates = seeker.seek();
 		
@@ -38,7 +37,7 @@ public class FindDuplicateFilesTests {
 		expectedEx.expect(RuntimeException.class);
 		expectedEx.expectMessage("Path nonExistingPath doesn't exist");
 
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path(nonExistentPaths,"nonExistingPath"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"nonExistingPath"));
 		
 		seeker.seek();
 	}
@@ -48,22 +47,22 @@ public class FindDuplicateFilesTests {
 		expectedEx.expect(RuntimeException.class);
 		expectedEx.expectMessage("Path anotherNonExistingPath doesn't exist");
 		
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path(nonExistentPaths,"anotherNonExistingPath"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"anotherNonExistingPath"));
 		
 		seeker.seek();
 	}
 	
 	class Path{
-		List<String> nonExistentPaths;
+		List<String> existentPaths;
 		private String path;
 		
-		public Path(List<String> nonExistentPaths,String path){
-			this.nonExistentPaths = nonExistentPaths;
+		public Path(List<String> existentPaths,String path){
+			this.existentPaths = existentPaths;
 			this.path = path;
 		}
 		
 		public void checkExists(){
-			if(nonExistentPaths.contains(path)){
+			if(!existentPaths.contains(path)){
 				throw new RuntimeException("Path " + path + " doesn't exist.");			
 			}
 		}
