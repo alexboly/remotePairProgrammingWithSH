@@ -11,10 +11,6 @@ public class DuplicateSeeker {
 	}
 
 	public boolean seek() {
-		if(!path.exists()){
-			throw new RuntimeException("Folder " + path.folderPath + " doesn't exist.");			
-		}
-
-		return false;
+		return path.exists();
 	}
 }

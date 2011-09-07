@@ -67,8 +67,11 @@ public class FindDuplicateFilesTests {
 		}
 		
 		public boolean exists(){
-			return !nonExistentFolderPaths.contains(folderPath);
+			if(nonExistentFolderPaths.contains(folderPath)){
+				throw new RuntimeException("Folder " + folderPath + " doesn't exist.");			
+			}
+			
+			return true;
 		}
-
 	}
 }
