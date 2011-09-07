@@ -1,18 +1,16 @@
 package ro.alexbolboaca.FindDuplicateFiles;
 
-import java.util.List;
-
 class Path{
-	List<String> existentPaths;
 	private String path;
+	private FileStub fileForTests;
 	
-	public Path(List<String> existentPaths, String path){
-		this.existentPaths = existentPaths;
+	public Path(FileStub fileForTests, String path){
+		this.fileForTests = fileForTests;
 		this.path = path;
 	}
 	
 	public void checkExists(){
-		if(!existentPaths.contains(path)){
+		if(!fileForTests.fileExists(path)){
 			throw new RuntimeException("Path " + path + " doesn't exist.");			
 		}
 	}

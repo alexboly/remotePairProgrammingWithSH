@@ -2,9 +2,6 @@ package ro.alexbolboaca.FindDuplicateFiles;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.*;
 import org.junit.rules.*;
 
@@ -13,19 +10,18 @@ public class FindDuplicateFilesTests {
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
-
-	List<String> existentPaths = new ArrayList<String>();
-
+	
+	FileStub fileForTests;
+	
 	@Before
 	public void setup(){
-		existentPaths.add("emptyFolder");
+		fileForTests = new FileStub();
 	}
 
 	
 	@Test
-	public void emptyPathHasNoDuplicates(){
-
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"emptyFolder"));
+	public void emptyPathHasNoDuplicates(){		
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(fileForTests,"emptyFolder"));
 		
 		boolean foundDuplicates = seeker.seek();
 		
@@ -35,19 +31,29 @@ public class FindDuplicateFilesTests {
 	@Test
 	public void anotherEmptyPathHasNoDuplicates(){
 
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"anotherEmptyFolder"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(fileForTests,"anotherEmptyFolder"));
 		
 		boolean foundDuplicates = seeker.seek();
 		
 		assertFalse(foundDuplicates);
 	}
-	
+
+	@Test
+	public void andAnotherEmptyPathHasNoDuplicates(){
+
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(fileForTests,"andAnotherEmptyFolder"));
+		
+		boolean foundDuplicates = seeker.seek();
+		
+		assertFalse(foundDuplicates);
+	}
+
 	@Test
 	public void throwsExceptionIfPathDoesntExist(){
 		expectedEx.expect(RuntimeException.class);
 		expectedEx.expectMessage("Path nonExistingPath doesn't exist");
 
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"nonExistingPath"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(fileForTests,"nonExistingPath"));
 		
 		seeker.seek();
 	}
@@ -57,7 +63,7 @@ public class FindDuplicateFilesTests {
 		expectedEx.expect(RuntimeException.class);
 		expectedEx.expectMessage("Path anotherNonExistingPath doesn't exist");
 		
-		DuplicateSeeker seeker = new DuplicateSeeker(new Path(existentPaths,"anotherNonExistingPath"));
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path(fileForTests,"anotherNonExistingPath"));
 		
 		seeker.seek();
 	}
