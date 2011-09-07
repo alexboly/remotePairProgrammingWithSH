@@ -56,7 +56,7 @@ public class FindDuplicateFilesTests {
 		List<String> existentPaths;
 		private String path;
 		
-		public Path(List<String> existentPaths,String path){
+		public Path(List<String> existentPaths, String path){
 			this.existentPaths = existentPaths;
 			this.path = path;
 		}
