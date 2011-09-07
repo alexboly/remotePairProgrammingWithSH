@@ -13,14 +13,9 @@ public class FindDuplicateFilesTests {
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
-	
-	List<String> nonExistentFolderPaths;
 
 	@Before
 	public void setup(){
-		nonExistentFolderPaths = new ArrayList<String>();
-		nonExistentFolderPaths.add("nonExistingFolder");
-		nonExistentFolderPaths.add("anotherNonExistingFolder");
 	}
 	
 	@Test
