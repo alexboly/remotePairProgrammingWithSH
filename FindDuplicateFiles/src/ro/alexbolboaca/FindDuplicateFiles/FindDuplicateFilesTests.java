@@ -28,7 +28,7 @@ public class FindDuplicateFilesTests {
 	@Test
 	public void emptyFolderHasNoDuplicatesAlex(){
 
-		DuplicateSeeker seeker = new DuplicateSeeker("doesn't matter", new Path());
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path("doesn't matter"));
 		
 		boolean foundDuplicates = seeker.seek();
 		
@@ -40,7 +40,7 @@ public class FindDuplicateFilesTests {
 		expectedEx.expect(RuntimeException.class);
 		expectedEx.expectMessage("Folder nonExistingFolder doesn't exist");
 
-		DuplicateSeeker seeker = new DuplicateSeeker("nonExistingFolder", new Path());
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path("nonExistingFolder"));
 		
 		seeker.seek();
 	}
@@ -50,22 +50,25 @@ public class FindDuplicateFilesTests {
 		expectedEx.expect(RuntimeException.class);
 		expectedEx.expectMessage("Folder anotherNonExistingFolder doesn't exist");
 		
-		DuplicateSeeker seeker = new DuplicateSeeker("anotherNonExistingFolder", new Path());
+		DuplicateSeeker seeker = new DuplicateSeeker(new Path("anotherNonExistingFolder"));
 		
 		seeker.seek();
 	}
 	
 	class Path{
 		List<String> nonExistentFolderPaths;
-
-		public Path(){
+		public String folderPath;
+		
+		public Path(String folderPath){
 			nonExistentFolderPaths = new ArrayList<String>();
 			nonExistentFolderPaths.add("nonExistingFolder");
 			nonExistentFolderPaths.add("anotherNonExistingFolder");
+			this.folderPath = folderPath;
 		}
 		
-		public boolean exists(String path){
-			return !nonExistentFolderPaths.contains(path);
+		public boolean exists(){
+			return !nonExistentFolderPaths.contains(folderPath);
 		}
+
 	}
 }
